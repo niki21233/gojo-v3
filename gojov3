@@ -1,4 +1,5 @@
---gojo v3 rework
+-- Gojo v3 rework
+
 local player = game.Players.LocalPlayer
 local char = player.Character
 local Humanoid = char.Humanoid
@@ -22,42 +23,77 @@ local function cloneToolName(slot, text)
         end
     end
 end
--- 10470104242
+
+-- Update the Magic Health UI
 local magichealth = player.PlayerGui:WaitForChild("ScreenGui"):WaitForChild("MagicHealth")
 local UltLabel = player.PlayerGui:WaitForChild("ScreenGui"):WaitForChild("MagicHealth"):WaitForChild("TextLabel")
 UltLabel.Visible = false
-local UltLabel = UltLabel:Clone()
-UltLabel.Visible = true
-UltLabel.Name = "SkibidiRizzlerGyattOhio"
-UltLabel.Parent = magichealth
+local UltLabelClone = UltLabel:Clone()
+UltLabelClone.Visible = true
+UltLabelClone.Name = "SkibidiRizzlerGyattOhio"
+UltLabelClone.Parent = magichealth
+
+-- Updating Magic Health UI in real-time
 task.spawn(function()
     while true do
-     UltLabel.Text = "honored one"
+        UltLabelClone.Text = "Honored One"  -- Change this based on the current ultimate ability or status
+        -- Update the tool names in the hotbar
         for _, slot in ipairs(hotbar:GetChildren()) do
             if slot:FindFirstChild("Base") and slot.Base:FindFirstChild("ToolName") then
                 local toolNameText = slot.Base.ToolName.Text
                 if toolNameText == "Normal Punch" then
-                    cloneToolName(slot.Base, "revirsal red :black flash:")
+                    cloneToolName(slot.Base, "Limitless Art")
                 elseif toolNameText == "Consecutive Punches" then
-                    cloneToolName(slot.Base, "speedy barage")
+                    cloneToolName(slot.Base, "Limitless Barrage")
                 elseif toolNameText == "Shove" then
-                    cloneToolName(slot.Base, "swift strike")
+                    cloneToolName(slot.Base, "Swift Strike")
                 elseif toolNameText == "Uppercut" then
-                    cloneToolName(slot.Base, "attact :black flash:")
+                    cloneToolName(slot.Base, "Lapse of Infinity: Black Flash")
                 elseif toolNameText == "Death Counter" then
                     cloneToolName(slot.Base, "Death Counter")
                 elseif toolNameText == "Table Flip" then
-                    cloneToolName(slot.Base, "red max")
+                    cloneToolName(slot.Base, "Red Max")
                 elseif toolNameText == "Serious Punch" then
-                    cloneToolName(slot.Base, "hollow purple")
+                    cloneToolName(slot.Base, "Hollow Purple")
                 elseif toolNameText == "Omni Directional Punch" then
                     cloneToolName(slot.Base, "Omni Directional Punch")
                 end
             end
         end
-        task.wait(1)
+        
+        -- Update Magic Health Health Bar
+        local healthBar = magichealth:FindFirstChild("Health") and magichealth.Health:FindFirstChild("Bar") and magichealth.Health.Bar:FindFirstChild("Bar")
+        if healthBar then
+            healthBar.ImageColor3 = Color3.fromRGB(0, 255, 255) -- Set health bar to an orange color (can change based on context)
+        end
+
+        -- Update the Text Label in the Magic Health frame
+        local textLabel = magichealth:FindFirstChild("TextLabel")
+        if textLabel then
+            textLabel.Text = "Ultimate Move in Progress"  -- Example of updating the text based on an event
+        end
+
+        task.wait(1)  -- Update every second
     end
 end)
+
+-- Additional logic to check for magic health and change it
+local screenGui = player.PlayerGui:FindFirstChild("ScreenGui")
+if screenGui then
+    local magicHealthFrame = screenGui:FindFirstChild("MagicHealth")
+    if magicHealthFrame then
+        local textLabel = magicHealthFrame:FindFirstChild("TextLabel")
+        if textLabel then
+            textLabel.Text = "ult name"  -- You can dynamically update the text to reflect the current ultimate move name
+        end
+        
+        local healthBar = magicHealthFrame:FindFirstChild("Health") and magicHealthFrame.Health:FindFirstChild("Bar") and magicHealthFrame.Health.Bar:FindFirstChild("Bar")
+        if healthBar then
+            healthBar.ImageColor3 = Color3.fromRGB(0, 85, 255)  -- Change the health bar color to orange
+        end
+    end
+end
+
 -- Create a ScreenGui
 local player = game.Players.LocalPlayer
 local screenGui = Instance.new("ScreenGui")
@@ -67,7 +103,7 @@ screenGui.Parent = player:WaitForChild("PlayerGui")
 -- Create a TextLabel for the watermark
 local watermarkLabel = Instance.new("TextLabel")
 watermarkLabel.Name = "WatermarkLabel"
-watermarkLabel.Text = "gojo v3 rework"  -- Customize your watermark text here
+watermarkLabel.Text = "The Strongest Of Today v1"  -- Customize your watermark text here
 watermarkLabel.Font = Enum.Font.SourceSans
 watermarkLabel.TextSize = 24  -- Set the size of the text
 watermarkLabel.TextColor3 = Color3.fromRGB(255, 255, 255)  -- White color
@@ -151,6 +187,23 @@ game.StarterGui:SetCore("SendNotification", {
     Duration = "10";
     Callback = NotificationBindable;
 })
+
+--[[NOTIFICASION thanks alot ]]
+local function callback(Text)
+end
+ 
+local NotificationBindable = Instance.new("BindableFunction")
+NotificationBindable.OnInvoke = callback
+ 
+game.StarterGui:SetCore("SendNotification", {
+    Title = "beluganiki";
+    Text = "I WANT TO THANK TO aggiealledge ON DISCORD!";
+    Duration = "10";
+    Callback = NotificationBindable;
+})
+
+
+
 
 
 --[[tp]]
@@ -918,7 +971,7 @@ local function onAnimationPlayed(animationTrack)
         end
 
         -- Remove the cloned object after a short time
-        local removeTime = 0.3 -- Time in seconds to wait before removing
+        local removeTime = 0.5 -- Time in seconds to wait before removing
         task.delay(removeTime, function()
             if test and test.Parent then
                 test:Destroy()
