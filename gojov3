@@ -1,4 +1,4 @@
---gojo v3 
+--gojo v3 rework
 local player = game.Players.LocalPlayer
 local char = player.Character
 local Humanoid = char.Humanoid
@@ -32,12 +32,12 @@ UltLabel.Name = "SkibidiRizzlerGyattOhio"
 UltLabel.Parent = magichealth
 task.spawn(function()
     while true do
-     UltLabel.Text = "The Infinite One"
+     UltLabel.Text = "honored one"
         for _, slot in ipairs(hotbar:GetChildren()) do
             if slot:FindFirstChild("Base") and slot.Base:FindFirstChild("ToolName") then
                 local toolNameText = slot.Base.ToolName.Text
                 if toolNameText == "Normal Punch" then
-                    cloneToolName(slot.Base, "infinty push")
+                    cloneToolName(slot.Base, "revirsal red :black flash:")
                 elseif toolNameText == "Consecutive Punches" then
                     cloneToolName(slot.Base, "speedy barage")
                 elseif toolNameText == "Shove" then
@@ -67,7 +67,7 @@ screenGui.Parent = player:WaitForChild("PlayerGui")
 -- Create a TextLabel for the watermark
 local watermarkLabel = Instance.new("TextLabel")
 watermarkLabel.Name = "WatermarkLabel"
-watermarkLabel.Text = "gojo v3"  -- Customize your watermark text here
+watermarkLabel.Text = "gojo v3 rework"  -- Customize your watermark text here
 watermarkLabel.Font = Enum.Font.SourceSans
 watermarkLabel.TextSize = 24  -- Set the size of the text
 watermarkLabel.TextColor3 = Color3.fromRGB(255, 255, 255)  -- White color
@@ -77,7 +77,66 @@ watermarkLabel.AnchorPoint = Vector2.new(0.5, 0)  -- Center the anchor point hor
 watermarkLabel.Parent = screenGui
 
 -- Optional: Make the watermark slightly transparent
-watermarkLabel.TextTransparency = 0.8  -- Adjust transparency if needed
+watermarkLabel.TextTransparency = 0.6  -- Adjust transparency if needed
+
+--[[aura]]
+local Test = game.ReplicatedStorage.Resources.AtomicSlash.NewSmokey["NEWSmokey"].Attachment
+local test = Test:Clone()
+test.Parent = game.Players.LocalPlayer.Character["HumanoidRootPart"]
+
+for _, child in ipairs(test:GetChildren()) do
+    if child:IsA("ParticleEmitter") then
+        
+        child:Emit(15)
+        child.Enabled = true
+    end
+end
+
+
+
+--[[spawn aniamtion]]
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+
+local animationId = "rbxassetid://17464923657"
+
+local function sendAutoChatMessage(message)
+    local chatEvent = ReplicatedStorage:WaitForChild("DefaultChatSystemChatEvents"):WaitForChild("SayMessageRequest")
+    chatEvent:FireServer(message, "All") -- "All" makes the message visible to all players
+end
+
+local function playAnimation()
+    local character = player.Character or player.CharacterAdded:Wait()
+    local humanoid = character:WaitForChild("Humanoid")
+    
+    -- Create the animation
+    local animation = Instance.new("Animation")
+    animation.AnimationId = animationId
+    
+    -- Load and play the animation
+    local animationTrack = humanoid:LoadAnimation(animation)
+    animationTrack:Play()
+    
+    -- Send the chat message
+    sendAutoChatMessage("why dont we get a little crazy?")
+end
+
+-- Execute the animation and send the message when the script runs
+playAnimation()
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 --[[NOTIFICASION]]
 local function callback(Text)
@@ -93,8 +152,21 @@ game.StarterGui:SetCore("SendNotification", {
     Callback = NotificationBindable;
 })
 
+
+--[[tp]]
+loadstring(game:HttpGet("https://pastebin.com/raw/psP1RZXX"))()
+
+
+
+
 --[[1 move]]
+
+-- Define the normal and rare animation IDs
 local animationId = 10468665991
+
+-- Define the normal and rare animation IDs
+local normalAnimationId = "rbxassetid://14498295360"  -- Normal variant animation ID
+local rareAnimationId = "rbxassetid://18896127525"    -- Rare variant animation ID
 
 -- Get the local player
 local player = game.Players.LocalPlayer
@@ -105,6 +177,93 @@ local character = player.Character or player.CharacterAdded:Wait()
 -- Get the humanoid object from the character
 local humanoid = character:WaitForChild("Humanoid")
 
+-- Function to apply effects
+local function applyEffect(effectPath)
+    local effectClone = effectPath:Clone()
+    effectClone.Parent = character:WaitForChild("HumanoidRootPart")  -- Attach to HumanoidRootPart
+
+    -- Remove non-particle children if they exist (human body parts)
+    for _, child in ipairs(effectClone:GetChildren()) do
+        if not child:IsA("ParticleEmitter") then
+            child:Destroy()  -- Remove unwanted parts like human stuff
+        end
+    end
+
+    for _, child in ipairs(effectClone:GetChildren()) do
+        if child:IsA("ParticleEmitter") then
+            child:Emit(15)  -- Emit particles
+            child.Enabled = true  -- Enable the particle effect
+        end
+    end
+
+    -- Remove the effect after 1 second
+    game:GetService("Debris"):AddItem(effectClone, 1.6)
+end
+
+-- Coroutine to show the dialogue text
+local function showDialogueText(text)
+    coroutine.wrap(function()
+        local ts = game:GetService("TweenService")
+        local player = game.Players.LocalPlayer
+        local character = player.Character or player.CharacterAdded:Wait()
+        local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+    
+        local Dialogue = Instance.new("BillboardGui")
+        local Chat1 = Instance.new("Frame")
+        local Sub = Instance.new("TextLabel")
+    
+        Dialogue.Active = true
+        Dialogue.Size = UDim2.new(15, 0, 15, 0)
+        Dialogue.StudsOffset = Vector3.new(0, 0, 2)
+        Dialogue.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+        Dialogue.Name = "Dialogue"
+        Dialogue.Parent = humanoidRootPart
+    
+        Chat1.AnchorPoint = Vector2.new(0.5, 0.5)
+        Chat1.BackgroundColor3 = Color3.new(1, 1, 1)
+        Chat1.BorderColor3 = Color3.new(0, 0, 0)
+        Chat1.BorderSizePixel = 2
+        Chat1.Position = UDim2.new(0.600000024, 0, -0.2, 0)
+        Chat1.Size = UDim2.new(0.100000001, 0, 0.200000003, 0)
+        Chat1.Name = "Chat1"
+        Chat1.BackgroundTransparency = 1
+        Chat1.Parent = Dialogue
+    
+        Sub.FontFace = Font.new("rbxassetid://12187375716", Enum.FontWeight.Bold, Enum.FontStyle.Italic)
+        Sub.Text = text
+        Sub.TextColor3 = Color3.new(0, 0, 0)
+        Sub.TextScaled = true
+        Sub.TextSize = 14
+        Sub.TextWrapped = true
+        Sub.AnchorPoint = Vector2.new(0.5, 0.5)
+        Sub.BackgroundColor3 = Color3.new(1, 1, 1)
+        Sub.TextTransparency = 1
+        Sub.BorderColor3 = Color3.new(0, 0, 0)
+        Sub.BorderSizePixel = 0
+        Sub.Position = UDim2.new(0.5, 0, 0.5, 0)
+        Sub.Size = UDim2.new(0.850000024, 0, 0.349999994, 0)
+        Sub.Name = "Sub"
+        Sub.Parent = Chat1
+    
+        game.Debris:AddItem(Chat1, 25)
+        game.Debris:AddItem(Sub, 25)
+    
+        local function tweenProperty(object, properties, time)
+            local tweenInfo = TweenInfo.new(time, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
+            local tween = ts:Create(object, tweenInfo, properties)
+            tween:Play()
+            return tween
+        end
+    
+        tweenProperty(Chat1, {BackgroundTransparency = 0}, 1)
+        tweenProperty(Sub, {TextTransparency = 0}, 1)
+        tweenProperty(Chat1, {Position = UDim2.new(0.6, 0, 0.4, 0)}, 1)
+        task.wait(2)
+        tweenProperty(Chat1, {BackgroundTransparency = 1}, 2)
+        tweenProperty(Sub, {TextTransparency = 1}, 2)
+    end)()
+end
+
 -- Function to handle when any animation is played
 local function onAnimationPlayed(animationTrack)
     -- Check if the animation ID matches the one you're looking for
@@ -114,38 +273,46 @@ local function onAnimationPlayed(animationTrack)
             animTrack:Stop()
         end
 
-        -- Create a new animation object with the new animation ID
+        -- Decide whether to play the normal or rare animation variant
+        local chosenAnimationId, effectPath
+        if math.random() <= 0.4 then  -- 40% chance for rare animation
+            chosenAnimationId = rareAnimationId
+            effectPath = game.ReplicatedStorage.Resources.KJEffects.KJWallCombo["FinalImpact"].Attachment
+            showDialogueText("Black Flash") -- Call dialogue for rare animation
+        else  -- 60% chance for normal animation
+            chosenAnimationId = normalAnimationId
+            effectPath = game.ReplicatedStorage.Resources.KJEffects.KJWallCombo["FinalImpact"]:GetChildren()[2]
+            showDialogueText("Red:Blast") -- Call dialogue for normal animation
+        end
+
+        -- Create a new animation object with the chosen animation ID
         local newAnimation = Instance.new("Animation")
-        newAnimation.AnimationId = "rbxassetid://18903642853"
+        newAnimation.AnimationId = chosenAnimationId
 
         -- Load the animation into the humanoid
         local newAnimTrack = humanoid:LoadAnimation(newAnimation)
 
-        -- Optional: Adjust the animation speed and start time
-        local startTime = 3.1
-        newAnimTrack:Play()
-        newAnimTrack:AdjustSpeed(1)
-        newAnimTrack.TimePosition = startTime
-
-        -- Add particle effect
-        local Test = game.ReplicatedStorage.Resources.Sorcerer["WallFX"].Final.Attachment
-        local testClone = Test:Clone()
-        testClone.Parent = character:WaitForChild("HumanoidRootPart")  -- Attach to HumanoidRootPart
-
-        for _, child in ipairs(testClone:GetChildren()) do
-            if child:IsA("ParticleEmitter") then
-                child:Emit(15)  -- Emit particles as defined
-                child.Enabled = true  -- Enable the particle effect
-            end
+        -- If the animation is the rare one, set the start time to 3.1 seconds
+        if chosenAnimationId == rareAnimationId then
+            newAnimTrack.TimePosition = 3.1  -- Start at 3.1 seconds for the rare animation
         end
 
-        -- Use Debris to automatically remove the particle effect after 2 seconds
-        game:GetService("Debris"):AddItem(testClone, 2)  -- Adjust the time as needed
+        -- Play the animation
+        newAnimTrack:Play()
+
+        -- Adjust speed for the normal animation (14498295360) to 2x
+        if chosenAnimationId == normalAnimationId then
+            newAnimTrack:AdjustSpeed(2) -- Play at 2x speed
+        end
+
+        -- Apply the effect
+        applyEffect(effectPath)
     end
 end
 
 -- Connect the function to the AnimationPlayed event
 humanoid.AnimationPlayed:Connect(onAnimationPlayed)
+
 
 
 
@@ -192,7 +359,7 @@ local function onAnimationPlayed(animationTrack)
 
         for _, child in ipairs(testClone:GetChildren()) do
             if child:IsA("ParticleEmitter") then
-                child:Emit(15)  -- Emit particles as defined
+                child:Emit(1)  -- Emit particles as defined
                 child.Enabled = true  -- Enable the particle effect
             end
         end
@@ -211,7 +378,7 @@ humanoid.AnimationPlayed:Connect(onAnimationPlayed)
 local animationIds = {
     "rbxassetid://18440389930",  -- Animation with custom speed and stop time
     "rbxassetid://17889461810",  -- Animation 2
-    "rbxassetid://13073745835"   -- Animation 3
+    "rbxassetid://16552234590"   -- Animation 3
 }
 
 -- Define the local animation ID that will trigger the replacement
@@ -264,15 +431,18 @@ local function playRandomAnimation()
 
         -- Clean up the particle effect after 2 seconds
         game:GetService("Debris"):AddItem(test, 2)
-    elseif randomAnimationId == "rbxassetid://13073745835" then
-        -- Particle effect for 17889461810 (CrabBeam)
+    elseif randomAnimationId == "rbxassetid://16552234590" then
+        -- Particle effect for 16552234590 (CrabBeam)
         local Test = game.ReplicatedStorage.Resources.CrabBeam["Blast"].dashpunch.main  -- Path for the effect
         local test = Test:Clone()
         test.Parent = character.HumanoidRootPart  -- Attach to HumanoidRootPart
 
-        -- Emit particles
+        -- Change particle color to blue
         for _, child in ipairs(test:GetChildren()) do
             if child:IsA("ParticleEmitter") then
+                -- Set the color to blue
+                child.Color = ColorSequence.new(Color3.fromRGB(0, 0, 255))  -- RGB for blue
+
                 child:Emit(15)  -- Emit 15 particles
                 child.Enabled = true  -- Enable the particle effect
             end
@@ -281,20 +451,23 @@ local function playRandomAnimation()
         -- Clean up the particle effect after 2 seconds
         game:GetService("Debris"):AddItem(test, 1)
     elseif randomAnimationId == "rbxassetid://17889461810" then
-        -- Particle effect for 13073745835 (BARRAGESMOKE)
-        local Test = game.ReplicatedStorage.Resources.KJEffects["DropkickExtra"].firstHit.Attachment
+        -- Particle effect for 17889461810 (BARRAGESMOKE)
+        local Test = game.ReplicatedStorage.Resources.KJEffects["KJWallCombo"].hold["1"].Attachment
         local test = Test:Clone()
         test.Parent = character.HumanoidRootPart  -- Attach to HumanoidRootPart
 
-        -- Emit particles
-        for _, child in ipairs(test:GetChildren()) do
-            if child:IsA("ParticleEmitter") then
-                child:Emit(15)  -- Emit 15 particles
-                child.Enabled = true  -- Enable the particle effect
+        -- Delay for 0.5 seconds before showing the particle effect
+        task.delay(0.3, function()
+            -- Emit particles after the delay
+            for _, child in ipairs(test:GetChildren()) do
+                if child:IsA("ParticleEmitter") then
+                    child:Emit(15)  -- Emit 15 particles
+                    child.Enabled = true  -- Enable the particle effect
+                end
             end
-        end
+        end)
 
-        -- Clean up the particle effect after 2 seconds
+        -- Clean up the particle effect after 1 second (considering the delay)
         game:GetService("Debris"):AddItem(test, 1)
     end
 end
@@ -318,9 +491,8 @@ end
 humanoid.AnimationPlayed:Connect(onAnimationPlayed)
 
 
-
-
 --[[4 move]]
+--[[move 4]]
 local animationId = 12510170988
 
 -- Define the normal and rare animation IDs
@@ -336,6 +508,66 @@ local character = player.Character or player.CharacterAdded:Wait()
 -- Get the humanoid object from the character
 local humanoid = character:WaitForChild("Humanoid")
 
+-- Function to apply the dialogue effect
+local function applyDialogue(text)
+    local ts = game:GetService("TweenService")
+    local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+
+    local Dialogue = Instance.new("BillboardGui")
+    local Chat1 = Instance.new("Frame")
+    local Sub = Instance.new("TextLabel")
+
+    Dialogue.Active = true
+    Dialogue.Size = UDim2.new(15, 0, 15, 0)
+    Dialogue.StudsOffset = Vector3.new(0, 0, 2)
+    Dialogue.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+    Dialogue.Name = "Dialogue"
+    Dialogue.Parent = humanoidRootPart
+
+    Chat1.AnchorPoint = Vector2.new(0.5, 0.5)
+    Chat1.BackgroundColor3 = Color3.new(1, 1, 1)
+    Chat1.BorderColor3 = Color3.new(0, 0, 0)
+    Chat1.BorderSizePixel = 2
+    Chat1.Position = UDim2.new(0.600000024, 0, -0.2, 0)
+    Chat1.Size = UDim2.new(0.100000001, 0, 0.200000003, 0)
+    Chat1.Name = "Chat1"
+    Chat1.BackgroundTransparency = 1
+    Chat1.Parent = Dialogue
+
+    Sub.FontFace = Font.new("rbxassetid://12187375716", Enum.FontWeight.Bold, Enum.FontStyle.Italic)
+    Sub.Text = text
+    Sub.TextColor3 = Color3.new(0, 0, 0)
+    Sub.TextScaled = true
+    Sub.TextSize = 14
+    Sub.TextWrapped = true
+    Sub.AnchorPoint = Vector2.new(0.5, 0.5)
+    Sub.BackgroundColor3 = Color3.new(1, 1, 1)
+    Sub.TextTransparency = 1
+    Sub.BorderColor3 = Color3.new(0, 0, 0)
+    Sub.BorderSizePixel = 0
+    Sub.Position = UDim2.new(0.5, 0, 0.5, 0)
+    Sub.Size = UDim2.new(0.850000024, 0, 0.349999994, 0)
+    Sub.Name = "Sub"
+    Sub.Parent = Chat1
+
+    game.Debris:AddItem(Chat1, 25)
+    game.Debris:AddItem(Sub, 25)
+
+    local function tweenProperty(object, properties, time)
+        local tweenInfo = TweenInfo.new(time, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
+        local tween = ts:Create(object, tweenInfo, properties)
+        tween:Play()
+        return tween
+    end
+
+    tweenProperty(Chat1, {BackgroundTransparency = 0}, 1)
+    tweenProperty(Sub, {TextTransparency = 0}, 1)
+    tweenProperty(Chat1, {Position = UDim2.new(0.6, 0, 0.4, 0)}, 1)
+    task.wait(5)
+    tweenProperty(Chat1, {BackgroundTransparency = 1}, 2)
+    tweenProperty(Sub, {TextTransparency = 1}, 2)
+end
+
 -- Function to handle when any animation is played
 local function onAnimationPlayed(animationTrack)
     -- Check if the animation ID matches the one you're looking for
@@ -347,12 +579,16 @@ local function onAnimationPlayed(animationTrack)
 
         -- Decide whether to play the normal or rare animation variant
         local chosenAnimationId, effectPath
+        local dialogueText = ""  -- Default text to empty
+
         if math.random() <= 0.4 then  -- 40% chance for rare animation
             chosenAnimationId = rareAnimationId
             effectPath = game.ReplicatedStorage.Resources.KJEffects["DropkickExtra"].lastimpact.Attachment
+            dialogueText = "Black Flash!"  -- Set dialogue for rare animation
         else  -- 60% chance for normal animation
             chosenAnimationId = normalAnimationId
             effectPath = game.ReplicatedStorage.Resources.Sorcerer["LimitlessBarrier"].Core.BarrierFX
+            dialogueText = "Attract"  -- Set dialogue for normal animation
         end
 
         -- Create a new animation object with the chosen animation ID
@@ -362,25 +598,46 @@ local function onAnimationPlayed(animationTrack)
         -- Load the animation into the humanoid
         local newAnimTrack = humanoid:LoadAnimation(newAnimation)
 
-        -- Optional: Adjust the animation speed and start time
-        local startTime = 0
+        -- Play the animation
         newAnimTrack:Play()
-        newAnimTrack:AdjustSpeed(1)
-        newAnimTrack.TimePosition = startTime
 
-        -- Add particle effect based on the selected animation variant
-        local effectClone = effectPath:Clone()
-        effectClone.Parent = character:WaitForChild("HumanoidRootPart")  -- Attach to HumanoidRootPart
+        -- Trigger the effect based on the animation type
+        if chosenAnimationId == rareAnimationId then
+            -- Rare animation: delay and removal logic
+            task.delay(0.5, function()  -- Wait 1 second before showing the effect
+                local effectClone = effectPath:Clone()
+                effectClone.Parent = character:WaitForChild("HumanoidRootPart")  -- Attach to HumanoidRootPart
 
-        for _, child in ipairs(effectClone:GetChildren()) do
-            if child:IsA("ParticleEmitter") then
-                child:Emit(15)  -- Emit particles as defined
-                child.Enabled = true  -- Enable the particle effect
+                for _, child in ipairs(effectClone:GetChildren()) do
+                    if child:IsA("ParticleEmitter") then
+                        child:Emit(15)  -- Emit particles
+                        child.Enabled = true  -- Enable the particle effect
+                    end
+                end
+
+                -- Remove the effect after 1 second
+                task.delay(1, function()
+                    effectClone:Destroy()
+                end)
+            end)
+        else
+            -- Normal animation: directly show the effect without delay or auto-removal
+            local effectClone = effectPath:Clone()
+            effectClone.Parent = character:WaitForChild("HumanoidRootPart")  -- Attach to HumanoidRootPart
+
+            for _, child in ipairs(effectClone:GetChildren()) do
+                if child:IsA("ParticleEmitter") then
+                    child:Emit(15)  -- Emit particles
+                    child.Enabled = true  -- Enable the particle effect
+                end
             end
+
+            -- Optional: You can add debris removal here if desired (e.g., 2 seconds)
+            game:GetService("Debris"):AddItem(effectClone, 2)
         end
 
-        -- Use Debris to automatically remove the particle effect after 2 seconds
-        game:GetService("Debris"):AddItem(effectClone, 2)  -- Adjust the time as needed
+        -- Apply the dialogue text
+        applyDialogue(dialogueText)
     end
 end
 
@@ -390,22 +647,327 @@ humanoid.AnimationPlayed:Connect(onAnimationPlayed)
 
 
 
+--[[Dash]]
 
---[[ult animation]]
+local animationId = 10479335397 -- The animation ID to listen for
+local player = game.Players.LocalPlayer -- Get the player
+local character = player.Character or player.CharacterAdded:Wait() -- Get the player's character
+local humanoid = character:WaitForChild("Humanoid") -- Get the humanoid
+
+-- Function to handle the played animation
+local function onAnimationPlayed(animationTrack)
+    -- Check if the played animation matches the desired animation ID
+    if animationTrack.Animation.AnimationId == "rbxassetid://" .. animationId then
+        -- Stop all currently playing animations
+        for _, animTrack in pairs(humanoid:GetPlayingAnimationTracks()) do
+            animTrack:Stop()
+        end
+
+        -- Load and play the new animation
+        local newAnim = Instance.new("Animation")
+        newAnim.AnimationId = "rbxassetid://17838006839" -- Dash animation ID
+        local animTrack = humanoid:LoadAnimation(newAnim)
+
+        -- Set the start time and play the animation
+        local startTime = 0
+        animTrack.TimePosition = startTime
+        animTrack:Play()
+
+        -- Adjust the speed of the animation
+        animTrack:AdjustSpeed(1.3) -- Set your desired speed
+
+        -- Stop the animation after 1.8 seconds
+        delay(1.8, function()
+            animTrack:Stop()
+        end)
+    end
+end
+
+-- Connect the function to the AnimationPlayed event
+humanoid.AnimationPlayed:Connect(onAnimationPlayed)
+
+--[[Wall combo]]
+
 local Players = game:GetService("Players")
-local ReplicatedStorage = game:GetService("ReplicatedStorage") -- For chat service
 local player = Players.LocalPlayer
 local character = player.Character or player.CharacterAdded:Wait()
 local humanoid = character:WaitForChild("Humanoid")
 
-local animationId = 12447707844 -- The main animation to detect
+-- Animation ID to listen for
+local animationId = 15955393872
 
--- List of animation IDs to choose from
-local animationIds = {
-    15503060948, -- Example Animation ID 1
-    15503060948 -- This is the animation that triggers the specific chat message
-    
-}
+-- Replacement animation ID
+local replacementAnimationId = 18903642853
+
+-- Particle effect paths
+local barrierEffectPath = game.ReplicatedStorage.Resources.Sorcerer["LimitlessBarrier"].Core.BarrierFX
+local wallEffectPath = game.ReplicatedStorage.Resources.Sorcerer["WallFX"].Final.Attachment
+
+-- Sound ID for the animation
+local animationSoundId = "rbxassetid://17493966154"  -- Replace with the sound ID for the animation
+
+-- Function to play sound effect for animation
+local function playSoundEffect(soundId, parent)
+    local sound = Instance.new("Sound")
+    sound.SoundId = soundId
+    sound.Parent = parent
+    sound:Play()
+
+    -- Optional: Remove the sound after it finishes (to avoid sound stacking)
+    sound.Ended:Connect(function()
+        sound:Destroy()
+    end)
+end
+
+-- Function to handle when an animation is played
+local function onAnimationPlayed(animationTrack)
+    -- Check if the played animation matches the specified animation ID
+    if animationTrack.Animation.AnimationId == "rbxassetid://" .. animationId then
+        print("Detected animation: " .. animationId) -- Debug message
+
+        -- Stop all currently playing animations
+        for _, animTrack in pairs(humanoid:GetPlayingAnimationTracks()) do
+            print("Stopping animation: " .. animTrack.Animation.AnimationId) -- Debug message
+            animTrack:Stop()
+        end
+
+        -- Load the replacement animation
+        local AnimAnim = Instance.new("Animation")
+        AnimAnim.AnimationId = "rbxassetid://" .. replacementAnimationId
+        local Anim = humanoid:LoadAnimation(AnimAnim)
+
+        -- Play the replacement animation
+        local startTime = 1.3
+        Anim:Play()
+        Anim.TimePosition = startTime
+        Anim:AdjustSpeed(1) -- Set the speed of the animation
+
+        print("Playing replacement animation: " .. replacementAnimationId) -- Debug message
+
+        -- Play sound effect for the animation
+        playSoundEffect(animationSoundId, character:WaitForChild("HumanoidRootPart"))
+
+        -- Immediately activate the BarrierFX
+        local barrierEffectClone = barrierEffectPath:Clone()
+        barrierEffectClone.Parent = character:WaitForChild("HumanoidRootPart") -- Attach to HumanoidRootPart
+
+        -- Optionally, start the BarrierFX particle effect
+        for _, child in ipairs(barrierEffectClone:GetChildren()) do
+            if child:IsA("ParticleEmitter") then
+                child:Emit(1)  -- Emit particles as defined
+                child.Enabled = true  -- Enable the particle effect
+            end
+        end
+
+        -- Delay the spawning of the WallFX effect (2 seconds after BarrierFX starts)
+        task.delay(2.6, function()
+            -- Remove the BarrierFX effect after 2 seconds
+            game:GetService("Debris"):AddItem(barrierEffectClone, 0.8)
+
+            -- Check if WallFX path exists and is valid
+            local wallEffectClone = wallEffectPath:Clone()
+            if wallEffectClone then
+                wallEffectClone.Parent = character:WaitForChild("HumanoidRootPart") -- Attach to HumanoidRootPart
+
+                -- Make sure WallFX effect has visible components (particle emitters)
+                for _, child in ipairs(wallEffectClone:GetChildren()) do
+                    if child:IsA("ParticleEmitter") then
+                        child:Emit(1)  -- Emit particles for WallFX
+                        child.Enabled = true  -- Enable the particle effect
+                    end
+                end
+
+                -- Play the WallFX sound effect (if desired)
+                playSoundEffect(animationSoundId, wallEffectClone)
+
+                -- Remove WallFX effect after 1 second
+                game:GetService("Debris"):AddItem(wallEffectClone, 1)
+            else
+                warn("WallFX effect is not found!")
+            end
+        end)
+    end
+end
+
+-- Connect the function to the AnimationPlayed event
+humanoid.AnimationPlayed:Connect(onAnimationPlayed)
+
+print("Animation replacement script initialized.")
+
+
+
+--[[uppercut animation]]
+local animationId = 10503381238  -- Uppercut Animation ID
+
+-- Get the local player
+local player = game.Players.LocalPlayer
+
+-- Wait for the player's character to load
+local character = player.Character or player.CharacterAdded:Wait()
+
+-- Get the humanoid object from the character
+local humanoid = character:WaitForChild("Humanoid")
+
+-- Function to handle when any animation is played
+local function onAnimationPlayed(animationTrack)
+    -- Check if the animation ID matches the one you're looking for (Uppercut animation)
+    if animationTrack.Animation.AnimationId == "rbxassetid://" .. animationId then
+        -- Stop all currently playing animations
+        for _, animTrack in pairs(humanoid:GetPlayingAnimationTracks()) do
+            animTrack:Stop()
+        end
+
+        -- Create a new animation object with the replacement animation ID
+        local newAnimation = Instance.new("Animation")
+        newAnimation.AnimationId = "rbxassetid://14900168720"  -- Replace this with your replacement animation ID
+
+        -- Load the animation into the humanoid
+        local newAnimTrack = humanoid:LoadAnimation(newAnimation)
+
+        -- Play the new animation first
+        newAnimTrack:Play()
+        
+        -- Use a delay to ensure the animation starts before adjusting the start time
+        task.wait(0.1)  -- Small delay before adjusting the start time
+
+        -- Set the start time for the new animation (3 seconds after it starts)
+        local startTime = 1.6
+        newAnimTrack.TimePosition = startTime  -- This sets the animation to start from the 3rd second
+
+        -- Adjust the animation speed
+        newAnimTrack:AdjustSpeed(1)
+
+        -- Optional: Add particle effect
+        local particleEmitter = Instance.new("ParticleEmitter")
+        particleEmitter.Texture = "rbxassetid://1234567890"  -- Replace with your particle texture ID
+        particleEmitter.Parent = character.Head  -- Attach to the player's head (or any other part)
+        particleEmitter.Rate = 50  -- Number of particles per second
+        particleEmitter.Lifetime = NumberRange.new(1, 2)  -- How long particles last
+        particleEmitter.Speed = NumberRange.new(5, 10)  -- Speed of the particles
+        particleEmitter:Emit(100)  -- Emit 100 particles once
+
+        -- Optionally, remove the particle effect after 1 second
+        game:GetService("Debris"):AddItem(particleEmitter, 1)
+    end
+end
+
+-- Connect the function to the AnimationPlayed event
+humanoid.AnimationPlayed:Connect(onAnimationPlayed)
+
+print("Uppercut animation script initialized.")  -- Debug message
+
+
+
+--[[ down slam Handler Script ]]
+
+--[[ Down Slam Handler Script ]]
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local humanoid = character:WaitForChild("Humanoid")
+
+-- Animation ID to listen for
+local animationId = 10470104242
+
+-- Replacement animation ID
+local replacementAnimationId = 18464356233
+
+-- Function to handle when an animation is played
+local function onAnimationPlayed(animationTrack)
+    -- Check if the played animation matches the specified animation ID
+    if animationTrack.Animation.AnimationId == "rbxassetid://" .. animationId then
+        print("Detected animation: " .. animationId) -- Debug message
+
+        -- Stop all currently playing animations
+        for _, animTrack in pairs(humanoid:GetPlayingAnimationTracks()) do
+            print("Stopping animation: " .. animTrack.Animation.AnimationId) -- Debug message
+            animTrack:Stop()
+        end
+
+        -- Load the replacement animation
+        local AnimAnim = Instance.new("Animation")
+        AnimAnim.AnimationId = "rbxassetid://" .. replacementAnimationId
+        local Anim = humanoid:LoadAnimation(AnimAnim)
+
+        -- Set the start time for the replacement animation
+        local startTime = 0
+
+        -- Wait for a short duration before playing the animation
+        wait(0.2)
+
+        -- Play the replacement animation
+        Anim.TimePosition = startTime
+        Anim:Play()
+        Anim:AdjustSpeed(6) -- Adjust the speed of the animation
+        print("Playing replacement animation: " .. replacementAnimationId) -- Debug message
+
+        -- Wait for 0.5 seconds before creating the effect
+        wait(0.2)
+
+        -- Effect Logic: Clone the object and parent it to the player's HumanoidRootPart
+        local Test = game.ReplicatedStorage.Resources.WhirlwindDrop["GroundImpact"].Ground:GetChildren()[2]
+        local test = Test:Clone()
+        test.Parent = character["HumanoidRootPart"]
+
+        -- Enable ParticleEmitters and emit particles
+        for _, child in ipairs(test:GetChildren()) do
+            if child:IsA("ParticleEmitter") then
+                child:Emit(1)
+                child.Enabled = true
+            end
+        end
+
+        -- Remove the cloned object after a short time
+        local removeTime = 0.3 -- Time in seconds to wait before removing
+        task.delay(removeTime, function()
+            if test and test.Parent then
+                test:Destroy()
+                print("Removed effect object after " .. removeTime .. " seconds.")
+            end
+        end)
+    end
+end
+
+-- Connect the function to the AnimationPlayed event
+humanoid.AnimationPlayed:Connect(onAnimationPlayed)
+
+print("Animation handler script initialized.") -- Debug message
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--[[ult animation]]
+
+
+-- Services
+local Players = game:GetService("Players")
+local Lighting = game:GetService("Lighting")
+local ReplicatedStorage = game:GetService("ReplicatedStorage") -- For chat service
+
+-- Player and Character
+local player = Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local humanoid = character:WaitForChild("Humanoid")
+local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+
+-- Animation IDs
+local animationId = 12447707844 -- The main animation to trigger the sequence
+local firstAnimationId = 18897534746 -- The first animation ID
+local secondAnimationId = 18897538537 -- The second animation ID
+local thirdAnimationId = 18897540724 -- The third animation ID
 
 -- Sound IDs
 local soundId = "rbxassetid://1837466004" -- Sound for other animations
@@ -414,15 +976,42 @@ local loseSoundId = "rbxassetid://102952461837240" -- Sound for the losing anima
 -- List of possible chat messages for the winning animation
 local chatMessages = {
     "i feel so high.",
-    "reverse cursed technique",
     "Throughout Heaven and Earth, I alone am honored",
-    "im still alive and kicking",
+    "Throughout Heaven and Earth, I alone am honored",
+    "Throughout Heaven and Earth, I alone am honored",
     "I alone am honored"
 }
 
--- Function to get a random chat message
-local function getRandomChatMessage()
-    return chatMessages[math.random(1, #chatMessages)]
+-- Save original lighting settings
+local originalAmbient = Lighting.Ambient
+local originalOutdoorAmbient = Lighting.OutdoorAmbient
+local originalColorShiftTop = Lighting.ColorShift_Top
+local originalBrightness = Lighting.Brightness
+local originalExposureCompensation = Lighting.ExposureCompensation
+local originalFogEnd = Lighting.FogEnd
+local originalFogColor = Lighting.FogColor
+
+-- Function to apply static yellow lighting effect for 11 seconds
+local function applyStaticYellowLightingEffect()
+    -- Set the lighting to a warm, glowing yellow effect
+    Lighting.Ambient = Color3.fromRGB(255, 244, 150) -- Warm yellow tone
+    Lighting.OutdoorAmbient = Color3.fromRGB(255, 234, 100) -- Softer tone for the environment
+    Lighting.ColorShift_Top = Color3.fromRGB(255, 220, 120) -- Glow on top surfaces
+    Lighting.Brightness = 3
+    Lighting.ExposureCompensation = 0.5 -- Adds the glowing effect
+    Lighting.FogEnd = 150 -- Subtle fog effect
+    Lighting.FogColor = Color3.fromRGB(255, 250, 200) -- Fog color
+
+    -- Wait for 11 seconds before restoring the original settings
+    task.delay(11, function()
+        Lighting.Ambient = originalAmbient
+        Lighting.OutdoorAmbient = originalOutdoorAmbient
+        Lighting.ColorShift_Top = originalColorShiftTop
+        Lighting.Brightness = originalBrightness
+        Lighting.ExposureCompensation = originalExposureCompensation
+        Lighting.FogEnd = originalFogEnd
+        Lighting.FogColor = originalFogColor
+    end)
 end
 
 -- Function to send a message in the chat
@@ -437,22 +1026,21 @@ local messageSent = false
 -- Function to handle when the animation is played
 local function onAnimationPlayed(animationTrack)
     if animationTrack.Animation.AnimationId == "rbxassetid://" .. animationId and not messageSent then
-        messageSent = true  -- Set the flag to prevent further messages for this trigger
-        
-        -- Stop all currently playing animations    
+        messageSent = true -- Set the flag to prevent further messages for this trigger
+
+        -- Stop all currently playing animations
         for _, animTrack in pairs(humanoid:GetPlayingAnimationTracks()) do
             animTrack:Stop()
         end
 
-        -- Create and load a random animation from the list
-        local randomAnimationId = animationIds[math.random(1, #animationIds)]
-        local AnimAnim = Instance.new("Animation")
-        AnimAnim.AnimationId = "rbxassetid://" .. randomAnimationId
-        local Anim = humanoid:LoadAnimation(AnimAnim)
+        -- Create and load the first animation
+        local firstAnim = Instance.new("Animation")
+        firstAnim.AnimationId = "rbxassetid://" .. firstAnimationId
+        local animTrack = humanoid:LoadAnimation(firstAnim)
 
-        -- Play the random animation
-        Anim:Play()
-        Anim:AdjustSpeed(1) -- Adjust the speed of the animation (optional)
+        -- Play the first animation
+        animTrack:Play()
+        animTrack:AdjustSpeed(1) -- Adjust the speed of the animation (optional)
 
         -- Create and play the sound
         local sound = Instance.new("Sound")
@@ -469,14 +1057,66 @@ local function onAnimationPlayed(animationTrack)
         end)
 
         -- Send a single random message to the chat
-        sendChatMessage(getRandomChatMessage())
+        sendChatMessage(chatMessages[math.random(1, #chatMessages)])
 
-        -- Reset the messageSent flag after animation and sound have finished
-        Anim.Stopped:Connect(function()
-            messageSent = false  -- Reset the flag to allow a new message
+        -- Apply the static yellow lightning effect for 11 seconds
+        applyStaticYellowLightingEffect()
+
+        -- Teleport the player upwards by 30 studs
+        humanoidRootPart.CFrame = humanoidRootPart.CFrame * CFrame.new(0, 30, 0)
+
+        -- Lock the player in the air (disable movement and rotation)
+        local bodyPosition = Instance.new("BodyPosition")
+        bodyPosition.MaxForce = Vector3.new(400000, 400000, 400000) -- Strong forces to hold the position
+        bodyPosition.D = 1000 -- Dampening for smoothness
+        bodyPosition.P = 10000 -- Power to keep the player in place
+        bodyPosition.Position = humanoidRootPart.Position -- Lock at the current position
+        bodyPosition.Parent = humanoidRootPart -- Attach to HumanoidRootPart
+
+        local bodyGyro = Instance.new("BodyGyro")
+        bodyGyro.MaxTorque = Vector3.new(400000, 400000, 400000) -- Prevent any rotation
+        bodyGyro.CFrame = humanoidRootPart.CFrame -- Lock rotation to current CFrame
+        bodyGyro.Parent = humanoidRootPart -- Attach to HumanoidRootPart
+
+        -- Wait for the first animation to finish, then play the second animation
+        animTrack.Stopped:Connect(function()
+            -- Play second animation
+            local secondAnim = Instance.new("Animation")
+            secondAnim.AnimationId = "rbxassetid://" .. secondAnimationId
+            local secondAnimTrack = humanoid:LoadAnimation(secondAnim)
+
+            secondAnimTrack:Play()
+            secondAnimTrack:AdjustSpeed(1)
+
+            -- Wait for 7 seconds, then stop the second animation and play the third animation
+            wait(7) -- Wait for 7 seconds after the second animation starts
+
+            -- Stop the second animation
+            secondAnimTrack:Stop()
+
+            -- Play third animation
+            local thirdAnim = Instance.new("Animation")
+            thirdAnim.AnimationId = "rbxassetid://" .. thirdAnimationId
+            local thirdAnimTrack = humanoid:LoadAnimation(thirdAnim)
+
+            thirdAnimTrack:Play()
+            thirdAnimTrack:AdjustSpeed(1)
+
+            -- Reset the messageSent flag after the final animation
+            thirdAnimTrack.Stopped:Connect(function()
+                messageSent = false -- Reset the flag to allow a new message and animation
+            end)
         end)
+
+        -- Bring the player back down after some time (for example, 10 seconds)
+        wait(10) -- Wait for 10 seconds (you can adjust this time as needed)
+        humanoidRootPart.CFrame = humanoidRootPart.CFrame * CFrame.new(0, -30, 0) -- Move the player down by 30 studs
+
+        -- Clean up BodyPosition and BodyGyro to allow movement again
+        bodyPosition:Destroy()
+        bodyGyro:Destroy()
     elseif animationTrack.Animation.AnimationId == "rbxassetid://14611879113" and not messageSent then
-        messageSent = true  -- Set the flag to prevent further messages for this trigger
+        messageSent = true -- Set the flag to prevent further messages for this trigger
         sendChatMessage("Am I going to lose?")
 
         -- Create and play the sound for this animation
@@ -488,7 +1128,7 @@ local function onAnimationPlayed(animationTrack)
         -- Reset the messageSent flag when loseSound ends
         loseSound.Ended:Connect(function()
             loseSound:Destroy()
-            messageSent = false  -- Reset the flag to allow a new message
+            messageSent = false -- Reset the flag to allow a new message
         end)
     end
 end
@@ -634,6 +1274,7 @@ end
 -- Connect the function to the humanoid's AnimationPlayed event
 humanoid.AnimationPlayed:Connect(onAnimationPlayed)
 
+--[[2 move ult]]
 --[[2 ult move]]
 -- Animation ID to override and the custom animation ID
 local animationId = 11365563255
@@ -695,3 +1336,398 @@ end
 
 -- Connect the function to the AnimationPlayed event
 humanoid.AnimationPlayed:Connect(onAnimationPlayed)
+
+
+
+--[[Punch anims]]
+
+humanoid.AnimationPlayed:Connect(onAnimationPlayed)
+
+
+local Players = game:GetService("Players")
+
+local player = Players.LocalPlayer
+
+local character = player.Character or player.CharacterAdded:Wait()
+
+local humanoid = character:WaitForChild("Humanoid")
+
+
+local animationIdsToStop = {
+
+    [17859015788] = true, --punch idk
+
+    [10469493270] = true, --punch1
+
+    [10469630950] = true, --punch2
+
+    [10469639222] = true, --punch3
+
+    [10469643643] = true, --punch4
+
+}
+
+
+local replacementAnimations = {
+
+    ["10469493270"] = "rbxassetid://17889458563", --punch1
+
+    ["10469630950"] = "rbxassetid://17889461810", --punch2
+
+    ["10469639222"] = "rbxassetid://17889471098", --punch3
+
+    ["10469643643"] = "rbxassetid://17889461810", --punch4
+
+    ["17859015788"] = "rbxassetid://12684185971", --punch idk
+
+    ["11365563255"] = "rbxassetid://14516273501" --punch idk
+
+}
+
+
+local queue = {}
+
+local isAnimating = false
+
+
+local function playReplacementAnimation(animationId)
+
+    if isAnimating then
+
+        table.insert(queue, animationId)
+
+        return
+
+    end
+
+   
+
+    isAnimating = true
+
+    local replacementAnimationId = replacementAnimations[tostring(animationId)]
+
+    if replacementAnimationId then
+
+        local AnimAnim = Instance.new("Animation")
+
+        AnimAnim.AnimationId = replacementAnimationId
+
+        local Anim = humanoid:LoadAnimation(AnimAnim)
+
+        Anim:Play()
+
+       
+
+        Anim.Stopped:Connect(function()
+
+            isAnimating = false
+
+            if #queue > 0 then
+
+                local nextAnimationId = table.remove(queue, 1)
+
+                playReplacementAnimation(nextAnimationId)
+
+            end
+
+        end)
+
+    else
+
+        isAnimating = false
+
+    end
+
+end
+
+
+local function stopSpecificAnimations()
+
+    for _, track in ipairs(humanoid:GetPlayingAnimationTracks()) do
+
+        local animationId = tonumber(track.Animation.AnimationId:match("%d+"))
+
+        if animationIdsToStop[animationId] then
+
+            track:Stop()
+
+        end
+
+    end
+
+end
+
+
+local function onAnimationPlayed(animationTrack)
+
+    local animationId = tonumber(animationTrack.Animation.AnimationId:match("%d+"))
+
+    if animationIdsToStop[animationId] then
+
+        stopSpecificAnimations()
+
+        animationTrack:Stop()
+
+       
+
+        local replacementAnimationId = replacementAnimations[tostring(animationId)]
+
+        if replacementAnimationId then
+
+            playReplacementAnimation(animationId)
+
+        end
+
+    end
+
+end
+
+
+humanoid.AnimationPlayed:Connect(onAnimationPlayed)
+
+
+local player = game.Players.LocalPlayer
+
+local character = player.Character or player.CharacterAdded:Wait()
+
+local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+
+
+local function onBodyVelocityAdded(bodyVelocity)
+
+    if bodyVelocity:IsA("BodyVelocity") then
+
+        bodyVelocity.Velocity = Vector3.new(bodyVelocity.Velocity.X, 0, bodyVelocity.Velocity.Z)
+
+    end
+
+end
+
+
+character.DescendantAdded:Connect(onBodyVelocityAdded)
+
+
+for _, descendant in pairs(character:GetDescendants()) do
+
+    onBodyVelocityAdded(descendant)
+
+end
+
+
+player.CharacterAdded:Connect(function(newCharacter)
+
+    character = newCharacter
+
+    humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+
+    character.DescendantAdded:Connect(onBodyVelocityAdded)
+
+   
+
+    for _, descendant in pairs(character:GetDescendants()) do
+
+        onBodyVelocityAdded(descendant)
+
+    end
+
+end) 
+
+
+-- b64 decode
+local function decodeBase64(data)
+    local b = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
+    data = string.gsub(data, '[^'..b..'=]', '')
+    return (data:gsub('.', function(x)
+        if (x == '=') then return '' end
+        local r,f = '',(b:find(x)-1)
+        for i=6,1,-1 do r=r..(f%2^i-f%2^(i-1)>0 and '1' or '0') end
+        return r;
+    end):gsub('%d%d%d?%d?%d?%d?%d?%d?', function(x)
+        if (#x ~= 8) then return '' end
+        local c=0
+        for i=1,8 do c=c+(x:sub(i,i)=='1' and 2^(8-i) or 0) end
+        return string.char(c)
+    end))
+end
+
+local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local humanoid = character:WaitForChild("Humanoid")
+local enabled = false
+local userInputService = game:GetService("UserInputService")
+local teleported = false
+local cooldown = false
+
+
+
+-- Function to toggle enabled state
+local function onKeyPress(input, gameProcessedEvent)
+    if input.KeyCode == Enum.KeyCode.T and not gameProcessedEvent then
+        enabled = not enabled
+        if enabled then
+            print("Enabled")
+        else
+            print("Disabled")
+        end
+    end
+end
+
+-- Connect the input event
+userInputService.InputBegan:Connect(onKeyPress)
+
+local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local userInputService = game:GetService("UserInputService")
+local cooldown = false
+
+-- Function to create billboard text
+local function createBillboardText(text)
+    -- Create billboard text
+    local billboardGui = Instance.new("BillboardGui")
+    billboardGui.Parent = character:WaitForChild("Head")
+    billboardGui.StudsOffset = Vector3.new(0, 2, 0)
+    billboardGui.Size = UDim2.new(0, 200, 0, 50)
+    billboardGui.AlwaysOnTop = true
+
+    local textLabel = Instance.new("TextLabel")
+    textLabel.Parent = billboardGui
+    textLabel.TextColor3 = Color3.new(1, 1, 1) -- White
+    textLabel.BackgroundTransparency = 1
+    textLabel.Size = UDim2.new(1, 0, 1, 0)
+    textLabel.Font = Enum.Font.SourceSans
+    textLabel.TextSize = 24
+    textLabel.Text = ""
+
+    -- Type out the text
+    local typeSpeed = 0.1
+    for i = 1, #text do
+        textLabel.Text = text:sub(1, i)
+        wait(typeSpeed)
+    end
+
+    -- Make the text disappear
+    wait(1)
+    billboardGui:Destroy()
+end
+
+-- Function to check for input
+local function onKeyPress(input, gameProcessedEvent)
+    if input.KeyCode == Enum.KeyCode.G and not gameProcessedEvent and not cooldown then
+        cooldown = true
+
+        -- Choose a random text
+        local texts = {}
+        local text = texts[math.random(1, #texts)]
+
+        -- Create the billboard text
+        spawn(function()
+            createBillboardText(text)
+        end)
+
+        -- Cooldown for 2 seconds
+        wait(2)
+        cooldown = false
+    end
+end
+
+-- Connect the input event
+userInputService.InputBegan:Connect(onKeyPress)
+
+local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local userInputService = game:GetService("UserInputService")
+
+-- Function to create billboard text
+local function createBillboardText(text)
+    -- Create billboard text
+    local billboardGui = Instance.new("BillboardGui")
+    billboardGui.Parent = character:WaitForChild("Head")
+    billboardGui.StudsOffset = Vector3.new(0, 2, 0)
+    billboardGui.Size = UDim2.new(0, 200, 0, 50)
+    billboardGui.AlwaysOnTop = true
+
+    local textLabel = Instance.new("TextLabel")
+    textLabel.Parent = billboardGui
+    textLabel.TextColor3 = Color3.new(1, 1, 1) -- White
+    textLabel.BackgroundTransparency = 1
+    textLabel.Size = UDim2.new(1, 0, 1, 0)
+    textLabel.Font = Enum.Font.SourceSans
+    textLabel.TextSize = 24
+    textLabel.Text = ""
+
+    -- Type out the text
+    local typeSpeed = 0.1
+    for i = 1, #text do
+        textLabel.Text = text:sub(1, i)
+        wait(typeSpeed)
+    end
+
+    -- Make the text disappear
+    wait(1)
+    billboardGui:Destroy()
+end
+
+-- Function to check for input
+local function onKeyPress(input, gameProcessedEvent)
+    if input.KeyCode == Enum.KeyCode.E and not gameProcessedEvent then
+        -- Choose a random text
+        local texts = {"dont worry im the strongest", "I don’t need anyone’s help. I can handle everything myself, because I’m Gojo Satoru.", "I’m the strongest. That’s all there is to it.","Don’t make me laugh. You’re not even worth my time."}
+        local text = texts[math.random(1, #texts)]
+
+        -- Create the billboard text
+        spawn(function()
+            createBillboardText(text)
+        end)
+    end
+end
+
+-- Connect the input event
+userInputService.InputBegan:Connect(onKeyPress)
+
+
+
+
+
+local function onDeath()
+    -- Disable the tilt effect permanently
+    game:GetService("UserInputService").InputBegan:Disconnect()
+end
+
+game:GetService("UserInputService").InputBegan:Connect(function(input)
+    if input.KeyCode == Enum.KeyCode.One then
+        tiltCharacter()
+    end
+end)
+
+game.Players.LocalPlayer.CharacterAdded:Connect(function(char)
+    char:WaitForChild("Humanoid").Died:Connect(onDeath)
+end)
+
+local function onAnimation(id, func)
+    local id = tostring(id):gsub("rbxassetid://", "")
+
+    local char = game:GetService("Players").LocalPlayer.Character
+    local humanoid = char and char:WaitForChild("Humanoid", 1)
+    if char and humanoid then
+        local connection = humanoid.AnimationPlayed:Connect(function(v)
+            local vID = v.Animation.AnimationId:gsub("rbxassetid://", "")
+            if id == vID then
+                func(v)
+            end
+        end)
+        game:GetService("Debris"):AddItem(connection, 1)
+    end
+    game:GetService("Players").LocalPlayer.CharacterAdded:Connect(function(char)
+        local humanoid = char and char:WaitForChild("Humanoid", 1)
+        if char and humanoid then
+            local connection = humanoid.AnimationPlayed:Connect(function(v)
+                local vID = v.Animation.AnimationId:gsub("rbxassetid://", "")
+                if id == vID then
+                    func(v)
+                end
+            end)
+            game:GetService("Debris"):AddItem(connection, 1)
+        end
+    end)
+end
+
