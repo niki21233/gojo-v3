@@ -376,7 +376,7 @@ humanoid.AnimationPlayed:Connect(onAnimationPlayed)
 --[[3 move]]
 -- Define animation IDs to choose from
 local animationIds = {
-    "rbxassetid://18440389930",  -- Animation with custom speed and stop time
+    "rbxassetid://18181348446",  -- Animation with custom speed and stop time
     "rbxassetid://17889461810",  -- Animation 2
     "rbxassetid://16552234590"   -- Animation 3
 }
@@ -385,9 +385,9 @@ local animationIds = {
 local localAnimationId = 10471336737  -- Original animation ID that will be replaced
 
 -- Define the animation speed for the animation with ID 18440389930
-local animationSpeed = 2.4
+local animationSpeed = 1.2
 -- Set the stop time for the animation with ID 18440389930 (6 seconds)
-local stopTime = 0.8
+local stopTime = 1
 
 -- Get the player and their character
 local player = game.Players.LocalPlayer
@@ -409,7 +409,7 @@ local function playRandomAnimation()
     animTrack:Play()
 
     -- If the animation is 18440389930, adjust its speed and stop after 6 seconds
-    if randomAnimationId == "rbxassetid://18440389930" then
+    if randomAnimationId == "rbxassetid://18181348446" then
         animTrack:AdjustSpeed(animationSpeed)  -- Apply custom speed
         -- Stop the animation after 6 seconds
         delay(stopTime, function()
@@ -417,7 +417,7 @@ local function playRandomAnimation()
         end)
 
         -- Particle effect for 18440389930 (DropkickExtra)
-        local Test = game.ReplicatedStorage.Resources.KJEffects["ColateralImapct"].HitTwo  -- Path for the effect
+        local Test = game.ReplicatedStorage.Resources.KJEffects["launchup"].launchything  -- Path for the effect
         local test = Test:Clone()
         test.Parent = character.HumanoidRootPart  -- Attach to HumanoidRootPart
 
@@ -457,7 +457,7 @@ local function playRandomAnimation()
         test.Parent = character.HumanoidRootPart  -- Attach to HumanoidRootPart
 
         -- Delay for 0.5 seconds before showing the particle effect
-        task.delay(0.3, function()
+        task.delay(0.2, function()
             -- Emit particles after the delay
             for _, child in ipairs(test:GetChildren()) do
                 if child:IsA("ParticleEmitter") then
@@ -975,7 +975,7 @@ local loseSoundId = "rbxassetid://102952461837240" -- Sound for the losing anima
 
 -- List of possible chat messages for the winning animation
 local chatMessages = {
-    "i feel so high.",
+    "Throughout Heaven and Earth, I alone am honored",
     "Throughout Heaven and Earth, I alone am honored",
     "Throughout Heaven and Earth, I alone am honored",
     "Throughout Heaven and Earth, I alone am honored",
