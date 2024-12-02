@@ -103,7 +103,7 @@ screenGui.Parent = player:WaitForChild("PlayerGui")
 -- Create a TextLabel for the watermark
 local watermarkLabel = Instance.new("TextLabel")
 watermarkLabel.Name = "WatermarkLabel"
-watermarkLabel.Text = "The Strongest Of Today v1"  -- Customize your watermark text here
+watermarkLabel.Text = "The Strongest Of Today v1.1"  -- Customize your watermark text here
 watermarkLabel.Font = Enum.Font.SourceSans
 watermarkLabel.TextSize = 24  -- Set the size of the text
 watermarkLabel.TextColor3 = Color3.fromRGB(255, 255, 255)  -- White color
@@ -369,7 +369,7 @@ humanoid.AnimationPlayed:Connect(onAnimationPlayed)
 
 
 
-
+--[[2 move]]
 
 local animationId = 10466974800
 
@@ -396,7 +396,7 @@ local function onAnimationPlayed(animationTrack)
         if math.random(1, 2) == 1 then
             chosenAnimationId = "rbxassetid://13560306510"  -- First animation
             effectLogic = function()
-                local Test = game.ReplicatedStorage.Resources.Sorcerer.LimitlessBarrier["Core"].Attachment
+                local Test = game.ReplicatedStorage.Resources.Sorcerer.LimitlessBarrier["Core"].Appear
                 local testClone = Test:Clone()
                 testClone.Parent = character:WaitForChild("HumanoidRootPart")  -- Attach to HumanoidRootPart
 
@@ -407,7 +407,7 @@ local function onAnimationPlayed(animationTrack)
                     end
                 end
 
-                game:GetService("Debris"):AddItem(testClone, 2)  -- Remove after 2 seconds
+                game:GetService("Debris"):AddItem(testClone, 1.8)  -- Remove after 2 seconds
             end
         else
             chosenAnimationId = "rbxassetid://12273188754"  -- Second animation
@@ -424,7 +424,7 @@ local function onAnimationPlayed(animationTrack)
                         end
                     end
 
-                    game:GetService("Debris"):AddItem(testClone, 3)  -- Remove after 3 seconds
+                    game:GetService("Debris"):AddItem(testClone, 1.8)  -- Remove after 3 seconds
                 end)
             end
         end
