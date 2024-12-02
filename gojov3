@@ -84,7 +84,7 @@ if screenGui then
     if magicHealthFrame then
         local textLabel = magicHealthFrame:FindFirstChild("TextLabel")
         if textLabel then
-            textLabel.Text = "ult name"  -- You can dynamically update the text to reflect the current ultimate move name
+            textLabel.Text = "tesended"  -- You can dynamically update the text to reflect the current ultimate move name
         end
         
         local healthBar = magicHealthFrame:FindFirstChild("Health") and magicHealthFrame.Health:FindFirstChild("Bar") and magicHealthFrame.Health.Bar:FindFirstChild("Bar")
@@ -135,7 +135,7 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Players = game:GetService("Players")
 local player = Players.LocalPlayer
 
-local animationId = "rbxassetid://17464923657"
+local animationId = "rbxassetid://14611879113"
 
 local function sendAutoChatMessage(message)
     local chatEvent = ReplicatedStorage:WaitForChild("DefaultChatSystemChatEvents"):WaitForChild("SayMessageRequest")
@@ -155,7 +155,7 @@ local function playAnimation()
     animationTrack:Play()
     
     -- Send the chat message
-    sendAutoChatMessage("why dont we get a little crazy?")
+    sendAutoChatMessage("Let's get a lilte crazy!")
 end
 
 -- Execute the animation and send the message when the script runs
@@ -371,7 +371,6 @@ humanoid.AnimationPlayed:Connect(onAnimationPlayed)
 
 
 
---[[2 move]]
 local animationId = 10466974800
 
 -- Get the local player
@@ -392,38 +391,68 @@ local function onAnimationPlayed(animationTrack)
             animTrack:Stop()
         end
 
-        -- Create a new animation object with the new animation ID
+        -- Randomly choose between the two new animations
+        local chosenAnimationId, effectLogic
+        if math.random(1, 2) == 1 then
+            chosenAnimationId = "rbxassetid://13560306510"  -- First animation
+            effectLogic = function()
+                local Test = game.ReplicatedStorage.Resources.Sorcerer.LimitlessBarrier["Core"].Attachment
+                local testClone = Test:Clone()
+                testClone.Parent = character:WaitForChild("HumanoidRootPart")  -- Attach to HumanoidRootPart
+
+                for _, child in ipairs(testClone:GetChildren()) do
+                    if child:IsA("ParticleEmitter") then
+                        child:Emit(1)
+                        child.Enabled = true
+                    end
+                end
+
+                game:GetService("Debris"):AddItem(testClone, 2)  -- Remove after 2 seconds
+            end
+        else
+            chosenAnimationId = "rbxassetid://12273188754"  -- Second animation
+            effectLogic = function()
+                task.delay(0.1, function()  -- Optional delay before adding effect
+                    local Test = game.ReplicatedStorage.Resources.KJEffects["KJWallCombo"].slam:GetChildren()[3]
+                    local testClone = Test:Clone()
+                    testClone.Parent = character:WaitForChild("HumanoidRootPart")  -- Attach to HumanoidRootPart
+
+                    for _, child in ipairs(testClone:GetChildren()) do
+                        if child:IsA("ParticleEmitter") then
+                            child:Emit(1)
+                            child.Enabled = true
+                        end
+                    end
+
+                    game:GetService("Debris"):AddItem(testClone, 3)  -- Remove after 3 seconds
+                end)
+            end
+        end
+
+        -- Create a new animation object with the chosen animation ID
         local newAnimation = Instance.new("Animation")
-        newAnimation.AnimationId = "rbxassetid://13560306510"
+        newAnimation.AnimationId = chosenAnimationId
 
         -- Load the animation into the humanoid
         local newAnimTrack = humanoid:LoadAnimation(newAnimation)
 
-        -- Optional: Adjust the animation speed and start time
-        local startTime = 0
+        -- Play the animation
         newAnimTrack:Play()
-        newAnimTrack:AdjustSpeed(3)
-        newAnimTrack.TimePosition = startTime
 
-        -- Add particle effect
-        local Test = game.ReplicatedStorage.Resources.Dragon["Explosion"].GoodWind.Attachment
-        local testClone = Test:Clone()
-        testClone.Parent = character:WaitForChild("HumanoidRootPart")  -- Attach to HumanoidRootPart
-
-        for _, child in ipairs(testClone:GetChildren()) do
-            if child:IsA("ParticleEmitter") then
-                child:Emit(1)  -- Emit particles as defined
-                child.Enabled = true  -- Enable the particle effect
-            end
+        -- Apply speed adjustment only to animation 13560306510
+        if chosenAnimationId == "rbxassetid://13560306510" then
+            newAnimTrack:AdjustSpeed(3)
+            newAnimTrack.TimePosition = 0
         end
 
-        -- Use Debris to automatically remove the particle effect after 2 seconds
-        game:GetService("Debris"):AddItem(testClone, 2)  -- Adjust the time as needed
+        -- Trigger the chosen effect logic
+        effectLogic()
     end
 end
 
 -- Connect the function to the AnimationPlayed event
 humanoid.AnimationPlayed:Connect(onAnimationPlayed)
+
 
 
 --[[3 move]]
@@ -545,12 +574,12 @@ humanoid.AnimationPlayed:Connect(onAnimationPlayed)
 
 
 --[[4 move]]
---[[move 4]]
 local animationId = 12510170988
 
--- Define the normal and rare animation IDs
+-- Define the normal, rare, and new animation IDs
 local normalAnimationId = "rbxassetid://15121659862"  -- Normal variant animation ID
-local rareAnimationId = "rbxassetid://18179181663"    -- Rare variant animation ID (adjust to the correct ID)
+local rareAnimationId = "rbxassetid://18179181663"    -- Rare variant animation ID
+local newAnimationId = "rbxassetid://18897119503"    -- New animation ID
 
 -- Get the local player
 local player = game.Players.LocalPlayer
@@ -630,18 +659,68 @@ local function onAnimationPlayed(animationTrack)
             animTrack:Stop()
         end
 
-        -- Decide whether to play the normal or rare animation variant
-        local chosenAnimationId, effectPath
+        -- Decide which animation variant to play
+        local chosenAnimationId, effectLogic
         local dialogueText = ""  -- Default text to empty
 
-        if math.random() <= 0.4 then  -- 40% chance for rare animation
+        local randomChance = math.random()
+
+        if randomChance <= 0.4 then  -- 40% chance for rare animation
             chosenAnimationId = rareAnimationId
-            effectPath = game.ReplicatedStorage.Resources.KJEffects["DropkickExtra"].lastimpact.Attachment
-            dialogueText = "Black Flash!"  -- Set dialogue for rare animation
-        else  -- 60% chance for normal animation
+            effectLogic = function()
+                local effectPath = game.ReplicatedStorage.Resources.KJEffects["DropkickExtra"].lastimpact.Attachment
+                local effectClone = effectPath:Clone()
+                effectClone.Parent = character:WaitForChild("HumanoidRootPart")
+
+                for _, child in ipairs(effectClone:GetChildren()) do
+                    if child:IsA("ParticleEmitter") then
+                        child:Emit(15)
+                        child.Enabled = true
+                    end
+                end
+
+                task.delay(1, function()
+                    effectClone:Destroy()
+                end)
+            end
+            dialogueText = "Black Flash!"
+        elseif randomChance <= 0.8 then  -- 40% chance for normal animation
             chosenAnimationId = normalAnimationId
-            effectPath = game.ReplicatedStorage.Resources.Sorcerer["LimitlessBarrier"].Core.BarrierFX
-            dialogueText = "Attract"  -- Set dialogue for normal animation
+            effectLogic = function()
+                local effectPath = game.ReplicatedStorage.Resources.Sorcerer["LimitlessBarrier"].Core.BarrierFX
+                local effectClone = effectPath:Clone()
+                effectClone.Parent = character:WaitForChild("HumanoidRootPart")
+
+                for _, child in ipairs(effectClone:GetChildren()) do
+                    if child:IsA("ParticleEmitter") then
+                        child:Emit(15)
+                        child.Enabled = true
+                    end
+                end
+
+                game:GetService("Debris"):AddItem(effectClone, 2)
+            end
+            dialogueText = "Attract"
+        else  -- 20% chance for new animation
+            chosenAnimationId = newAnimationId
+            effectLogic = function()
+                task.delay(0.9, function()
+                    local test = game.ReplicatedStorage.Resources.WhirlwindDrop["GroundImpact"].Ground:GetChildren()[2]:Clone()
+                    test.Parent = character["HumanoidRootPart"]
+
+                    for _, child in ipairs(test:GetChildren()) do
+                        if child:IsA("ParticleEmitter") then
+                            child:Emit(1)
+                            child.Enabled = true
+                        end
+                    end
+
+                    task.delay(0.7, function()
+                        test:Destroy()
+                    end)
+                end)
+            end
+            dialogueText = "Ground Breaker"
         end
 
         -- Create a new animation object with the chosen animation ID
@@ -654,40 +733,8 @@ local function onAnimationPlayed(animationTrack)
         -- Play the animation
         newAnimTrack:Play()
 
-        -- Trigger the effect based on the animation type
-        if chosenAnimationId == rareAnimationId then
-            -- Rare animation: delay and removal logic
-            task.delay(0.5, function()  -- Wait 1 second before showing the effect
-                local effectClone = effectPath:Clone()
-                effectClone.Parent = character:WaitForChild("HumanoidRootPart")  -- Attach to HumanoidRootPart
-
-                for _, child in ipairs(effectClone:GetChildren()) do
-                    if child:IsA("ParticleEmitter") then
-                        child:Emit(15)  -- Emit particles
-                        child.Enabled = true  -- Enable the particle effect
-                    end
-                end
-
-                -- Remove the effect after 1 second
-                task.delay(1, function()
-                    effectClone:Destroy()
-                end)
-            end)
-        else
-            -- Normal animation: directly show the effect without delay or auto-removal
-            local effectClone = effectPath:Clone()
-            effectClone.Parent = character:WaitForChild("HumanoidRootPart")  -- Attach to HumanoidRootPart
-
-            for _, child in ipairs(effectClone:GetChildren()) do
-                if child:IsA("ParticleEmitter") then
-                    child:Emit(15)  -- Emit particles
-                    child.Enabled = true  -- Enable the particle effect
-                end
-            end
-
-            -- Optional: You can add debris removal here if desired (e.g., 2 seconds)
-            game:GetService("Debris"):AddItem(effectClone, 2)
-        end
+        -- Trigger the effect logic
+        effectLogic()
 
         -- Apply the dialogue text
         applyDialogue(dialogueText)
@@ -696,6 +743,7 @@ end
 
 -- Connect the function to the AnimationPlayed event
 humanoid.AnimationPlayed:Connect(onAnimationPlayed)
+
 
 
 
