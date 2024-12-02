@@ -704,7 +704,7 @@ local function onAnimationPlayed(animationTrack)
         else  -- 20% chance for new animation
             chosenAnimationId = newAnimationId
             effectLogic = function()
-                task.delay(0.9, function()
+                task.delay(0.6, function()
                     local test = game.ReplicatedStorage.Resources.WhirlwindDrop["GroundImpact"].Ground:GetChildren()[2]:Clone()
                     test.Parent = character["HumanoidRootPart"]
 
