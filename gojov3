@@ -46,7 +46,7 @@ task.spawn(function()
                 elseif toolNameText == "Consecutive Punches" then
                     cloneToolName(slot.Base, "Limitless Barrage")
                 elseif toolNameText == "Shove" then
-                    cloneToolName(slot.Base, "Swift Strike")
+                    cloneToolName(slot.Base, "infinty art Strike")
                 elseif toolNameText == "Uppercut" then
                     cloneToolName(slot.Base, "Lapse of Infinity: Black Flash")
                 elseif toolNameText == "Death Counter" then
@@ -103,7 +103,7 @@ screenGui.Parent = player:WaitForChild("PlayerGui")
 -- Create a TextLabel for the watermark
 local watermarkLabel = Instance.new("TextLabel")
 watermarkLabel.Name = "WatermarkLabel"
-watermarkLabel.Text = "The Strongest Of Today v1.1"  -- Customize your watermark text here
+watermarkLabel.Text = "The Strongest Of Today (not skided it is a joke lol) v1.1"  -- Customize your watermark text here
 watermarkLabel.Font = Enum.Font.SourceSans
 watermarkLabel.TextSize = 24  -- Set the size of the text
 watermarkLabel.TextColor3 = Color3.fromRGB(255, 255, 255)  -- White color
@@ -115,18 +115,7 @@ watermarkLabel.Parent = screenGui
 -- Optional: Make the watermark slightly transparent
 watermarkLabel.TextTransparency = 0.6  -- Adjust transparency if needed
 
---[[aura]]
-local Test = game.ReplicatedStorage.Resources.AtomicSlash.NewSmokey["NEWSmokey"].Attachment
-local test = Test:Clone()
-test.Parent = game.Players.LocalPlayer.Character["HumanoidRootPart"]
 
-for _, child in ipairs(test:GetChildren()) do
-    if child:IsA("ParticleEmitter") then
-        
-        child:Emit(15)
-        child.Enabled = true
-    end
-end
 
 
 
@@ -135,7 +124,7 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Players = game:GetService("Players")
 local player = Players.LocalPlayer
 
-local animationId = "rbxassetid://14611879113"
+local animationId = "rbxassetid://17464923657"
 
 local function sendAutoChatMessage(message)
     local chatEvent = ReplicatedStorage:WaitForChild("DefaultChatSystemChatEvents"):WaitForChild("SayMessageRequest")
@@ -182,25 +171,12 @@ local NotificationBindable = Instance.new("BindableFunction")
 NotificationBindable.OnInvoke = callback
  
 game.StarterGui:SetCore("SendNotification", {
-    Title = "beluganiki";
-    Text = "enjoi this script toke me alot of time";
+    Title = "nobody nows this";
+    Text = "You are the chosen one!";
     Duration = "10";
     Callback = NotificationBindable;
 })
 
---[[NOTIFICASION thanks alot ]]
-local function callback(Text)
-end
- 
-local NotificationBindable = Instance.new("BindableFunction")
-NotificationBindable.OnInvoke = callback
- 
-game.StarterGui:SetCore("SendNotification", {
-    Title = "beluganiki";
-    Text = "I WANT TO THANK TO aggiealledge ON DISCORD!";
-    Duration = "10";
-    Callback = NotificationBindable;
-})
 
 
 
@@ -213,7 +189,6 @@ loadstring(game:HttpGet("https://pastebin.com/raw/psP1RZXX"))()
 
 
 --[[1 move]]
-
 -- Define the normal and rare animation IDs
 local animationId = 10468665991
 
@@ -356,6 +331,20 @@ local function onAnimationPlayed(animationTrack)
         -- Adjust speed for the normal animation (14498295360) to 2x
         if chosenAnimationId == normalAnimationId then
             newAnimTrack:AdjustSpeed(2) -- Play at 2x speed
+
+            -- Make the lighting red for the duration of the animation
+            local lighting = game:GetService("Lighting")
+            local originalAmbient = lighting.Ambient
+            local originalColorShift = lighting.ColorShift_Bottom
+
+            lighting.Ambient = Color3.new(156, 0, 0) -- Set to red
+            lighting.ColorShift_Bottom = Color3.new(156, 0, 0) -- Add red hue
+
+            -- Revert lighting changes after the animation duration
+            task.delay(newAnimTrack.Length / 2, function()
+                lighting.Ambient = originalAmbient
+                lighting.ColorShift_Bottom = originalColorShift
+            end)
         end
 
         -- Apply the effect
